@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:action="@{/student/edit}" th:object="${student}" method="post">
+  <p>
+    <label for="id"> ID</label>
+    <input type="text" name="id" id="id" th:value="${foundStudent.id}">
+  </p>
+  <p>
+    <label for="name"> Name</label>
+    <input type="text" name="name" id="name" th:value="${foundStudent.name}">
+  </p>
+  <p>
+    <label for="yob">Year Of Birth</label>
+    <input type="text" name="yob" id="yob" th:value="${foundStudent.yob}">
+  </p>
+  <p>
+    <label for="gpa">GPA </label>
+    <input type="text" name="gpa" id="gpa" th:value="${foundStudent.gpa}">
+  </p>
+  <button type="submit">Save</button>
+</form>
+</body>
+</html>

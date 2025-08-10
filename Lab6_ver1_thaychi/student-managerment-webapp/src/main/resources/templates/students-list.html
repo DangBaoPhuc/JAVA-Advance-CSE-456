@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script th:inline="javascript" th:if="${pid != null}">
+    window.addEventListener('load', function () {
+        alert([[${pmsg}]]);
+    });
+</script>
+<h1 th:text="'The list of Student'"> inner text se bi ghi de</h1>
+<a th:href="@{/student/create}">Create</a>
+<div th:if="${pid}!=null">
+    <h1 th:text="'Message ' +${pmsg}"></h1>
+    <p th:text="'ID ' +${pid}"> </p>
+    <p th:text="'Name ' +${pname}"> </p>
+    <p th:text="'Yob ' +${pyob}"> </p>
+    <p th:text="'GPA ' +${pgpa}"> </p>
+</div>
+<table>
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Year Of Birth</th>
+        <th>GPA</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="s : ${students}">
+        <td th:text="${s.id}"> </td>
+        <td th:text="${s.name}"></td>
+        <td th:text="${s.yob}"></td>
+        <td th:text="${s.gpa}"></td>
+        <td>
+            <a th:href="@{'/student/edit/' + ${s.id}}">Edit</a>
+            <form th:action="@{'/student/delete/' + ${s.id}}" method="post" style="display:inline;">
+                <button type="submit" onclick="return confirm('Bạn có chắc muốn xóa?')">Delete</button>
+            </form>
+        </td>
+    </tr>
+
+    </tbody>
+</table>
+</body>
+</html>

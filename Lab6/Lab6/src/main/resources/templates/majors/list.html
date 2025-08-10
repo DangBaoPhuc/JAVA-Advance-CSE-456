@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Majors List</title>
+</head>
+<body>
+<h1>Majors List</h1>
+
+<a th:href="@{/majors/new}">Add New Major</a>
+
+<table border="1" cellpadding="5" cellspacing="0">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Students Count</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="major : ${majors}">
+    <td th:text="${major.id}"></td>
+    <td th:text="${major.name}"></td>
+    <!-- Chỉ đếm số lượng students để tránh vòng lặp -->
+    <td th:text="${#lists.size(major.students)}"></td>
+    <td>
+      <a th:href="@{'/majors/edit/' + ${major.id}}">Edit</a> |
+      <a th:href="@{'/majors/delete/' + ${major.id}}"
+         onclick="return confirm('Are you sure you want to delete this major?');">
+        Delete
+      </a>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+</body>
+</html>
