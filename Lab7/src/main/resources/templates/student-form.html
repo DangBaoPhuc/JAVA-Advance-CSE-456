@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<h2 th:text="${(student.student_id ==null) ? 'Create Student' : 'Edit Student'}"></h2>
+<form th:action="@{/student/form}" th:object="${student}" method="post">
+
+    <p>
+        <label th:for="student_id">Id:</label>
+        <input type="text" th:field="*{student_id}">
+        <span th:if="${student.student_id == null and duplicated != null}"
+              th:text="${duplicated}"></span>
+
+    </p>
+    <p>
+        <label>Name:</label>
+        <input type="text" th:field="*{name}" required />
+        <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+    </p>
+    <p>
+        <label th:for="yob">Year of Birth</label>
+        <input type="text" th:field="*{yob}">
+        <span th:if="${#fields.hasErrors('yob')}" th:errors="*{yob}"></span>
+
+    </p>
+
+    <p>
+        <label th:for="gpa">GPA</label>
+        <input type="text" th:field="*{gpa}">
+        <span th:if="${#fields.hasErrors('gpa')}" th:errors="*{gpa}"></span>
+    </p>
+    <p>
+        <label th:for="major">Major</label>
+        <select name="majorId" >
+            <option value=""> -- No major --</option>
+            <option th:each="m:${majors}"
+                    th:value="${m.id}"
+                    th:text="${m.name}"
+            th:selected="${student.major != null ? student.major.id==m.id : false }"></option>
+
+        </select>
+    </p>
+    <p>
+        <label th:for="type">Type</label>
+    <p>
+        <label th:for="type">Type</label>
+        <input type="text" th:name="type"
+               th:value="${student.student_id == null ? 'Create' : 'Edit'}" readonly>
+    </p>
+
+
+    </p>
+
+
+    <button type="submit">Save</button>
+</form>
+
+</body>
+</html>

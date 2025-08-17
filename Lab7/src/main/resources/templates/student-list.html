@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Student List</title>
+</head>
+<body>
+<form th:action="@{/students}" method="get">
+    <input type="text" name="keyword" th:value="${keyword}" placeholder="Search name..." />
+    <button type="submit">Search</button>
+    <a th:href="@{/students}">Clear</a>
+</form>
+<a th:href="@{'/student/new'}">Create new Student</a>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Year Of Birth</th>
+        <th>GPA</th>
+        <th>Major</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="s : ${students}">
+        <td th:text="${s.student_id}"></td>
+        <td th:text="${s.name}"></td>
+        <td th:text="${s.yob}"></td>
+        <td th:text="${s.gpa}"></td>
+        <td th:text="${s.major != null ? s.major.name : ''}"></td>
+        <td>
+            <a th:href="@{'/student/edit/' + ${s.student_id}}">Edit</a>
+            <a th:href="@{'/student/delete/' + ${s.student_id}} " onclick="return confirm('Are you sure to delete this student?')">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
