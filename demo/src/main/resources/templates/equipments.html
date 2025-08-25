@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>List of Equipments</title>
+</head>
+<body>
+
+<div>
+    <h1 th:if="${errRole!=null}"  th:text="${errRole}"></h1>
+</div>
+<div>
+    <h1>Welcome</h1>
+    <h1 th:text="${session.user.username}"></h1>
+    <a th:href="@{/logout}">Logout</a>
+
+</div>
+<h1 th:text="${session.user.getUsername()}"></h1>
+
+<h1>List of Equipment</h1>
+
+<a th:if="${session.user.role==1}" th:href="@{'/equipment/new'}">Create new Student</a>
+<table>
+    <thread>
+        <tr>
+            <th>ID</th>
+            <th>Type</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Purchase Date</th>
+            <th th:if="${session.user.role==1} or ${session.user.role==2} ">Action</th>
+        </tr>
+    </thread>
+    <tbody>
+    <tr th:each="e:${equipments}">
+        <td th:text="${e.equipmentId}"></td>
+        <td th:text="${e.equipmentType.typeName}"></td>
+        <td th:text="${e.getEquipmentName()}"></td>
+        <td th:text="${e.getPurchasePrice()}"></td>
+        <td th:text="${e.getQuantityAvailable()}"></td>
+        <td th:text="${#temporals.format(e.purchaseDate, 'yyyy-MM-dd')}"></td>
+        <td >
+            <a th:if="${session.user.role==1} or ${session.user.role==2} " th:href="@{'/equipment/edit/' + ${e.getEquipmentId()}}"> Edit</a>
+            <a th:if="${session.user.role==1}" th:href="@{'/equipment/delete/' + ${e.getEquipmentId()}}" onclick="return confirm ('Are u sure?')">Delete</a>
+
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<<html xmlns:th="http://www.thymeleaf.org">>
+<head>
+    <meta charset="UTF-8">
+    <title>Form</title>
+</head>
+<body>
+
+
+<h1 th:text="${(equipment.equipmentId!=null)? 'Edit':'Create'}"></h1>
+<form th:action="@{/equipment/form}" th:object="${equipment}" method="post">
+    <p>
+        <label th:for="equipmentId">ID</label>
+        <input type="text" th:field="*{equipmentId}">
+    </p>
+    <p>
+        <label th:for="equipmentType">Type</label>
+        <select name="equipmentTypeId" id="">
+            <option value="">-- No equipmentType</option>
+            <option th:each="et : ${equipmentTypes}"
+                    th:value="${et.equipmentTypeId}"
+                    th:text="${et.typeName}"
+                    th:selected="${equipment.equipmentType != null? equipment.equipmentType.equipmentTypeId == et.equipmentTypeId : false}">
+            </option>
+        </select>
+    </p>
+    <p>
+        <label th:for="equipmentName">Name</label>
+        <input type="text" th:field="*{equipmentName}">
+    </p>
+    <p>
+        <label th:for="purchasePrice"> Price</label>
+        <input type="text" th:field="*{purchasePrice}">
+    </p>
+    <p>
+        <label th:for="quantityAvailable">Quantity Available</label>
+        <input type="text" th:field="*{quantityAvailable}">
+    </p>
+    <p>
+        <label th:for="purchaseDate">PurchaseDate</label>
+        <input type="text" th:field="*{purchaseDate}">
+    </p>
+
+    <button type="submit">Save</button>
+
+
+</form>
+</body>
+</html>
